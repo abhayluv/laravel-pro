@@ -22,6 +22,18 @@ class Configuration extends Model
         'sidebar_box_shadow',
         'sidebar_padding',
         'sidebar_margin',
+        'sidebar_link_background_color',
+        'sidebar_link_background_hover_color',
+        'sidebar_link_text_color',
+        'sidebar_link_text_hover_color',
+        'sidebar_active_link_background_color',
+        'sidebar_active_link_text_color',
+        'sidebar_active_link_border_top',
+        'sidebar_active_link_border_right',
+        'sidebar_active_link_border_bottom',
+        'sidebar_active_link_border_left',
+        'sidebar_link_padding',
+        'sidebar_link_margin',
         'paragraph_font_size',
         'paragraph_font_color',
         'paragraph_font_hover_color',
@@ -211,6 +223,18 @@ class Configuration extends Model
             'sidebar_box_shadow' => 'none',
             'sidebar_padding' => '0px 0px 0px 0px',
             'sidebar_margin' => '0px 0px 0px 0px',
+            'sidebar_link_background_color' => '#374151',
+            'sidebar_link_background_hover_color' => '#4b5563',
+            'sidebar_link_text_color' => '#ffffff',
+            'sidebar_link_text_hover_color' => '#ffffff',
+            'sidebar_active_link_background_color' => '#3b82f6',
+            'sidebar_active_link_text_color' => '#ffffff',
+            'sidebar_active_link_border_top' => '0px',
+            'sidebar_active_link_border_right' => '0px',
+            'sidebar_active_link_border_bottom' => '0px',
+            'sidebar_active_link_border_left' => '0px',
+            'sidebar_link_padding' => '12px 16px',
+            'sidebar_link_margin' => '0px 0px 0px 0px',
             'paragraph_font_size' => '16px',
             'paragraph_font_color' => '#374151',
             'paragraph_font_hover_color' => '#1f2937',
@@ -387,21 +411,158 @@ class Configuration extends Model
             margin: {$this->sidebar_margin} !important;
         }
 
-        /* Sidebar Links and Elements */
+        /* Sidebar Links and Elements - Override Tailwind Classes */
         html body aside a,
         html body .sidebar a,
         html body [class*='sidebar'] a,
-        html body nav a {
-            color: {$this->sidebar_text_color} !important;
+        html body nav a,
+        html body .sidebar-link,
+        html body aside .sidebar-link,
+        html body .sidebar .sidebar-link,
+        html body [class*='sidebar'] .sidebar-link,
+        html body nav .sidebar-link {
+            background-color: {$this->sidebar_link_background_color} !important;
+            color: {$this->sidebar_link_text_color} !important;
             font-size: {$this->sidebar_font_size} !important;
             font-weight: {$this->sidebar_font_weight} !important;
+            padding: {$this->sidebar_link_padding} !important;
+            margin: {$this->sidebar_link_margin} !important;
         }
 
         html body aside a:hover,
         html body .sidebar a:hover,
         html body [class*='sidebar'] a:hover,
-        html body nav a:hover {
-            color: {$this->sidebar_text_color} !important;
+        html body nav a:hover,
+        html body .sidebar-link:hover,
+        html body aside .sidebar-link:hover,
+        html body .sidebar .sidebar-link:hover,
+        html body [class*='sidebar'] .sidebar-link:hover,
+        html body nav .sidebar-link:hover {
+            background-color: {$this->sidebar_link_background_hover_color} !important;
+            color: {$this->sidebar_link_text_hover_color} !important;
+        }
+
+        /* Active Sidebar Links - Override Tailwind Classes */
+        html body aside a.active,
+        html body aside a[aria-current='page'],
+        html body .sidebar a.active,
+        html body .sidebar a[aria-current='page'],
+        html body [class*='sidebar'] a.active,
+        html body [class*='sidebar'] a[aria-current='page'],
+        html body nav a.active,
+        html body nav a[aria-current='page'],
+        html body .sidebar-link-active,
+        html body aside .sidebar-link-active,
+        html body .sidebar .sidebar-link-active,
+        html body [class*='sidebar'] .sidebar-link-active,
+        html body nav .sidebar-link-active {
+            background-color: {$this->sidebar_active_link_background_color} !important;
+            color: {$this->sidebar_active_link_text_color} !important;
+            border-top: {$this->sidebar_active_link_border_top} !important;
+            border-right: {$this->sidebar_active_link_border_right} !important;
+            border-bottom: {$this->sidebar_active_link_border_bottom} !important;
+            border-left: {$this->sidebar_active_link_border_left} !important;
+        }
+
+        /* Override specific Tailwind sidebar link classes with maximum specificity */
+        html body aside .text-indigo-600,
+        html body aside .bg-indigo-50,
+        html body aside .border-indigo-600,
+        html body aside .border-r-2,
+        html body .sidebar .text-indigo-600,
+        html body .sidebar .bg-indigo-50,
+        html body .sidebar .border-indigo-600,
+        html body .sidebar .border-r-2,
+        html body [class*='sidebar'] .text-indigo-600,
+        html body [class*='sidebar'] .bg-indigo-50,
+        html body [class*='sidebar'] .border-indigo-600,
+        html body [class*='sidebar'] .border-r-2,
+        html body nav .text-indigo-600,
+        html body nav .bg-indigo-50,
+        html body nav .border-indigo-600,
+        html body nav .border-r-2,
+        html body aside a.text-indigo-600,
+        html body aside a.bg-indigo-50,
+        html body aside a.border-indigo-600,
+        html body aside a.border-r-2,
+        html body .sidebar a.text-indigo-600,
+        html body .sidebar a.bg-indigo-50,
+        html body .sidebar a.border-indigo-600,
+        html body .sidebar a.border-r-2,
+        html body [class*='sidebar'] a.text-indigo-600,
+        html body [class*='sidebar'] a.bg-indigo-50,
+        html body [class*='sidebar'] a.border-indigo-600,
+        html body [class*='sidebar'] a.border-r-2,
+        html body nav a.text-indigo-600,
+        html body nav a.bg-indigo-50,
+        html body nav a.border-indigo-600,
+        html body nav a.border-r-2 {
+            background-color: {$this->sidebar_active_link_background_color} !important;
+            color: {$this->sidebar_active_link_text_color} !important;
+            padding: {$this->sidebar_link_padding} !important;
+            margin: {$this->sidebar_link_margin} !important;
+            border-color: {$this->sidebar_active_link_border_right} !important;
+        }
+
+        html body aside .text-gray-600,
+        html body aside .hover\:text-gray-900,
+        html body aside .hover\:bg-gray-50,
+        html body .sidebar .text-gray-600,
+        html body .sidebar .hover\:text-gray-900,
+        html body .sidebar .hover\:bg-gray-50,
+        html body [class*='sidebar'] .text-gray-600,
+        html body [class*='sidebar'] .hover\:text-gray-900,
+        html body [class*='sidebar'] .hover\:bg-gray-50,
+        html body nav .text-gray-600,
+        html body nav .hover\:text-gray-900,
+        html body nav .hover\:bg-gray-50,
+        html body aside a.text-gray-600,
+        html body aside a.hover\:text-gray-900,
+        html body aside a.hover\:bg-gray-50,
+        html body .sidebar a.text-gray-600,
+        html body .sidebar a.hover\:text-gray-900,
+        html body .sidebar a.hover\:bg-gray-50,
+        html body [class*='sidebar'] a.text-gray-600,
+        html body [class*='sidebar'] a.hover\:text-gray-900,
+        html body [class*='sidebar'] a.hover\:bg-gray-50,
+        html body nav a.text-gray-600,
+        html body nav a.hover\:text-gray-900,
+        html body nav a.hover\:bg-gray-50 {
+            background-color: {$this->sidebar_link_background_color} !important;
+            color: {$this->sidebar_link_text_color} !important;
+            padding: {$this->sidebar_link_padding} !important;
+            margin: {$this->sidebar_link_margin} !important;
+        }
+
+        /* Force override for sidebar link components */
+        html body .sidebar-link,
+        html body aside .sidebar-link,
+        html body .sidebar .sidebar-link,
+        html body [class*='sidebar'] .sidebar-link,
+        html body nav .sidebar-link {
+            background-color: {$this->sidebar_link_background_color} !important;
+            color: {$this->sidebar_link_text_color} !important;
+            font-size: {$this->sidebar_font_size} !important;
+            font-weight: {$this->sidebar_font_weight} !important;
+            padding: {$this->sidebar_link_padding} !important;
+            margin: {$this->sidebar_link_margin} !important;
+        }
+
+        html body .sidebar-link-active,
+        html body aside .sidebar-link-active,
+        html body .sidebar .sidebar-link-active,
+        html body [class*='sidebar'] .sidebar-link-active,
+        html body nav .sidebar-link-active {
+            background-color: {$this->sidebar_active_link_background_color} !important;
+            color: {$this->sidebar_active_link_text_color} !important;
+            font-size: {$this->sidebar_font_size} !important;
+            font-weight: {$this->sidebar_font_weight} !important;
+            padding: {$this->sidebar_link_padding} !important;
+            margin: {$this->sidebar_link_margin} !important;
+            border-top: {$this->sidebar_active_link_border_top} !important;
+            border-right: {$this->sidebar_active_link_border_right} !important;
+            border-bottom: {$this->sidebar_active_link_border_bottom} !important;
+            border-left: {$this->sidebar_active_link_border_left} !important;
         }
 
         /* Paragraph Styles - High Specificity (Excluding Sidebar) */

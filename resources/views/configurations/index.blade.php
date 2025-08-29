@@ -119,6 +119,61 @@
                                 </div>
                             </div>
 
+                            <!-- Sidebar Link -->
+                            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-sm">
+                                <h4 class="text-lg font-medium text-gray-900 mb-4">Sidebar Link</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    <div>
+                                        <label for="sidebar_link_background_color" class="block text-md font-medium text-gray-700 mb-2">Link Background Color</label>
+                                        <input type="color" name="sidebar_link_background_color" id="sidebar_link_background_color" value="{{ $configuration->sidebar_link_background_color }}" class="block w-full h-10 rounded border-gray-300">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_link_background_hover_color" class="block text-md font-medium text-gray-700 mb-2">Link Background Hover Color</label>
+                                        <input type="color" name="sidebar_link_background_hover_color" id="sidebar_link_background_hover_color" value="{{ $configuration->sidebar_link_background_hover_color }}" class="block w-full h-10 rounded border-gray-300">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_link_text_color" class="block text-md font-medium text-gray-700 mb-2">Link Text Color</label>
+                                        <input type="color" name="sidebar_link_text_color" id="sidebar_link_text_color" value="{{ $configuration->sidebar_link_text_color }}" class="block w-full h-10 rounded border-gray-300">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_link_text_hover_color" class="block text-md font-medium text-gray-700 mb-2">Link Text Hover Color</label>
+                                        <input type="color" name="sidebar_link_text_hover_color" id="sidebar_link_text_hover_color" value="{{ $configuration->sidebar_link_text_hover_color }}" class="block w-full h-10 rounded border-gray-300">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_active_link_background_color" class="block text-md font-medium text-gray-700 mb-2">Active Link Background Color</label>
+                                        <input type="color" name="sidebar_active_link_background_color" id="sidebar_active_link_background_color" value="{{ $configuration->sidebar_active_link_background_color }}" class="block w-full h-10 rounded border-gray-300">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_active_link_text_color" class="block text-md font-medium text-gray-700 mb-2">Active Link Text Color</label>
+                                        <input type="color" name="sidebar_active_link_text_color" id="sidebar_active_link_text_color" value="{{ $configuration->sidebar_active_link_text_color }}" class="block w-full h-10 rounded border-gray-300">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_active_link_border_top" class="block text-md font-medium text-gray-700 mb-2">Active Link Border Top</label>
+                                        <input type="text" name="sidebar_active_link_border_top" id="sidebar_active_link_border_top" value="{{ $configuration->sidebar_active_link_border_top }}" placeholder="0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_active_link_border_right" class="block text-md font-medium text-gray-700 mb-2">Active Link Border Right</label>
+                                        <input type="text" name="sidebar_active_link_border_right" id="sidebar_active_link_border_right" value="{{ $configuration->sidebar_active_link_border_right }}" placeholder="0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_active_link_border_bottom" class="block text-md font-medium text-gray-700 mb-2">Active Link Border Bottom</label>
+                                        <input type="text" name="sidebar_active_link_border_bottom" id="sidebar_active_link_border_bottom" value="{{ $configuration->sidebar_active_link_border_bottom }}" placeholder="0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_active_link_border_left" class="block text-md font-medium text-gray-700 mb-2">Active Link Border Left</label>
+                                        <input type="text" name="sidebar_active_link_border_left" id="sidebar_active_link_border_left" value="{{ $configuration->sidebar_active_link_border_left }}" placeholder="0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_link_padding" class="block text-md font-medium text-gray-700 mb-2">Link Padding</label>
+                                        <input type="text" name="sidebar_link_padding" id="sidebar_link_padding" value="{{ $configuration->sidebar_link_padding }}" placeholder="12px 16px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                    <div>
+                                        <label for="sidebar_link_margin" class="block text-md font-medium text-gray-700 mb-2">Link Margin</label>
+                                        <input type="text" name="sidebar_link_margin" id="sidebar_link_margin" value="{{ $configuration->sidebar_link_margin }}" placeholder="0px 0px 0px 0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Typography Design -->
                             <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-sm">
                                 <h4 class="text-lg font-medium text-gray-900 mb-4">Typography Design</h4>

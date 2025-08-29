@@ -28,6 +28,20 @@ The Configuration System is a comprehensive design management solution that allo
 - ✅ **Padding** - Set internal spacing
 - ✅ **Margin** - Set external spacing
 
+### 🔗 **Sidebar Link**
+- ✅ **Link Background Color** - Customize sidebar link background
+- ✅ **Link Background Hover Color** - Customize hover background
+- ✅ **Link Text Color** - Customize sidebar link text color
+- ✅ **Link Text Hover Color** - Customize hover text color
+- ✅ **Active Link Background Color** - Customize active link background
+- ✅ **Active Link Text Color** - Customize active link text color
+- ✅ **Active Link Border Top** - Set active link top border
+- ✅ **Active Link Border Right** - Set active link right border
+- ✅ **Active Link Border Bottom** - Set active link bottom border
+- ✅ **Active Link Border Left** - Set active link left border
+- ✅ **Link Padding** - Set link internal spacing
+- ✅ **Link Margin** - Set link external spacing
+
 ### 📝 **Typography Design**
 
 #### Paragraph (p)
@@ -135,6 +149,20 @@ sidebar_border_radius (VARCHAR(8)) - Sidebar border radius
 sidebar_box_shadow (TEXT) - Sidebar box shadow
 sidebar_padding (TEXT) - Sidebar padding
 sidebar_margin (TEXT) - Sidebar margin
+
+-- Sidebar Link Design
+sidebar_link_background_color (VARCHAR(7)) - Sidebar link background
+sidebar_link_background_hover_color (VARCHAR(7)) - Sidebar link hover background
+sidebar_link_text_color (VARCHAR(7)) - Sidebar link text color
+sidebar_link_text_hover_color (VARCHAR(7)) - Sidebar link hover text color
+sidebar_active_link_background_color (VARCHAR(7)) - Active link background
+sidebar_active_link_text_color (VARCHAR(7)) - Active link text color
+sidebar_active_link_border_top (VARCHAR(8)) - Active link top border
+sidebar_active_link_border_right (VARCHAR(8)) - Active link right border
+sidebar_active_link_border_bottom (VARCHAR(8)) - Active link bottom border
+sidebar_active_link_border_left (VARCHAR(8)) - Active link left border
+sidebar_link_padding (TEXT) - Sidebar link padding
+sidebar_link_margin (TEXT) - Sidebar link margin
 
 -- Typography Design (for each element: p, a, h1-h6)
 {element}_font_size (VARCHAR(8)) - Font size
