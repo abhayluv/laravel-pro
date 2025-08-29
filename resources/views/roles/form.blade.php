@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="flex justify-end gap-3">
-                        <a href="{{ route('settings.index', ['tab' => 'roles']) }}" class="px-4 py-2 bg-white border border-gray-200 rounded">Cancel</a>
+                        <a href="{{ route('roles.index') }}" class="px-4 py-2 bg-white border border-gray-200 rounded">Cancel</a>
                         <button class="px-4 py-2 bg-indigo-600 text-white rounded">{{ $role->exists ? 'Update' : 'Create' }}</button>
                     </div>
                 </form>

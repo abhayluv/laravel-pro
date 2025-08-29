@@ -19,9 +19,9 @@
                     <span>{{ __('Dashboard') }}</span>
                 </x-sidebar-link>
             </li>
-            <li x-data="{ open: {{ request()->routeIs('settings.*') ? 'true' : 'false' }} }">
+            <li x-data="{ open: {{ request()->routeIs('configurations.*') || request()->routeIs('roles.*') || request()->routeIs('users.*') ? 'true' : 'false' }} }">
                 <x-sidebar-dropdown 
-                    :active="request()->routeIs('settings.*')" 
+                    :active="request()->routeIs('configurations.*') || request()->routeIs('roles.*') || request()->routeIs('users.*')" 
                     :label="__('General Settings')" 
                     @click="open = !open"
                 >
@@ -33,7 +33,7 @@
                 <!-- Dropdown Menu -->
                 <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95" class="mt-1 space-y-1 border-l-2 border-gray-200 ml-3">
                     <!-- Configurations -->
-                    <x-sidebar-sub-link :href="route('settings.index', ['tab' => 'configurations'])" :active="request()->routeIs('settings.index') && request()->query('tab') == 'configurations'">
+                    <x-sidebar-sub-link :href="route('configurations.index')" :active="request()->routeIs('configurations.*')">
                         <svg class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082m-.75-.082a24.301 24.301 0 00-4.5 0m0 0v5.714a2.25 2.25 0 00-.659 1.591L5 14.5m0 0v5.714a2.25 2.25 0 001.591.659L19.8 15.3" />
                         </svg>
@@ -41,7 +41,7 @@
                     </x-sidebar-sub-link>
                     
                     <!-- Roles -->
-                    <x-sidebar-sub-link :href="route('settings.index', ['tab' => 'roles'])" :active="request()->routeIs('settings.index') && request()->query('tab') == 'roles'">
+                    <x-sidebar-sub-link :href="route('roles.index')" :active="request()->routeIs('roles.*')">
                         <svg class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 1115 0v.75H4.5v-.75z" />
                         </svg>
@@ -49,7 +49,7 @@
                     </x-sidebar-sub-link>
                     
                     <!-- Users -->
-                    <x-sidebar-sub-link :href="route('settings.index', ['tab' => 'users'])" :active="request()->routeIs('settings.index') && request()->query('tab') == 'users'">
+                    <x-sidebar-sub-link :href="route('users.index')" :active="request()->routeIs('users.*')">
                         <svg class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
                         </svg>

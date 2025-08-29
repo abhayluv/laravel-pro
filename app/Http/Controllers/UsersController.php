@@ -11,6 +11,31 @@ use Illuminate\Validation\Rule;
 
 class UsersController extends Controller
 {
+    public function index(Request $request)
+    {
+        $view = $request->query('view', 'grid');
+        $search = $request->query('search');
+        $status = $request->query('status'); // 1 active role, 0 disabled role
+
+        $query = User::with('role');
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+        if ($status !== null && $status !== '') {
+            $query->whereHas('role', function ($q) use ($status) {
+                $q->where('status', (bool)$status);
+            });
+        }
+
+        $users = $query->latest()->paginate(12)->withQueryString();
+
+        return view('users.index', compact('users','view','search','status'));
+    }
+
     public function create()
     {
         $roles = Role::orderBy('name')->get();
@@ -51,7 +76,7 @@ class UsersController extends Controller
         $user->password = Hash::make($data['password']);
         $user->save();
 
-        return redirect()->route('settings.index', ['tab' => 'users'])->with('status', 'User created');
+        return redirect()->route('users.index')->with('status', 'User created');
     }
 
     public function edit(User $user)
@@ -96,7 +121,7 @@ class UsersController extends Controller
         }
         $user->save();
 
-        return redirect()->route('settings.index', ['tab' => 'users'])->with('status', 'User updated');
+        return redirect()->route('users.index')->with('status', 'User updated');
     }
 
     public function destroy(User $user)
@@ -105,7 +130,7 @@ class UsersController extends Controller
             Storage::disk('public')->delete($user->icon_path);
         }
         $user->delete();
-        return redirect()->route('settings.index', ['tab' => 'users'])->with('status', 'User deleted');
+        return redirect()->route('users.index')->with('status', 'User deleted');
     }
 
     public function toggleStatus(Request $request, User $user)

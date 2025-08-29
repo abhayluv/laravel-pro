@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\ConfigurationsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MasterFormController;
@@ -19,8 +20,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/settings', [SettingsController::class, 'index'])->middleware('verified')->name('settings.index');
-    Route::post('/settings/configuration', [SettingsController::class, 'updateConfiguration'])->middleware('verified')->name('settings.configuration.update');
+    // Configurations routes
+    Route::get('/configurations', [ConfigurationsController::class, 'index'])->middleware('verified')->name('configurations.index');
+    Route::post('/configurations', [ConfigurationsController::class, 'update'])->middleware('verified')->name('configurations.update');
 
 // Test route for configuration
 Route::get('/test-configuration', function () {
@@ -32,7 +34,8 @@ Route::get('/test-configuration', function () {
         'css' => $css
     ]);
 })->name('test.configuration');
-    Route::middleware('verified')->prefix('settings')->name('roles.')->group(function () {
+    // Roles routes
+    Route::middleware('verified')->name('roles.')->group(function () {
         Route::get('roles', [RolesController::class, 'index'])->name('index');
         Route::get('roles/create', [RolesController::class, 'create'])->name('create');
         Route::post('roles', [RolesController::class, 'store'])->name('store');
@@ -41,7 +44,10 @@ Route::get('/test-configuration', function () {
         Route::delete('roles/{role}', [RolesController::class, 'destroy'])->name('destroy');
         Route::patch('roles/{role}/toggle-status', [RolesController::class, 'toggleStatus'])->name('toggle-status');
     });
-    Route::middleware('verified')->prefix('settings')->name('users.')->group(function () {
+    
+    // Users routes
+    Route::middleware('verified')->name('users.')->group(function () {
+        Route::get('users', [UsersController::class, 'index'])->name('index');
         Route::get('users/create', [UsersController::class, 'create'])->name('create');
         Route::post('users', [UsersController::class, 'store'])->name('store');
         Route::get('users/{user}/edit', [UsersController::class, 'edit'])->name('edit');

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('General Settings') }}
+            {{ __('Configurations') }}
         </h2>
     </x-slot>
 
@@ -9,22 +9,12 @@
         <div class="mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="text-gray-900">
-                <div class="border-b border-gray-200 mb-4">
-                    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                        <a href="{{ route('settings.index', ['tab' => 'configurations']) }}" class="whitespace-nowrap py-4 px-1 border-b-2 text-sm font-medium {{ $activeTab === 'configurations' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">{{ __('Configurations') }}</a>
-                        <a href="{{ route('settings.index', ['tab' => 'roles']) }}" class="whitespace-nowrap py-4 px-1 border-b-2 text-sm font-medium {{ $activeTab === 'roles' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">{{ __('Roles') }}</a>
-                        <a href="{{ route('settings.index', ['tab' => 'users']) }}" class="whitespace-nowrap py-4 px-1 border-b-2 text-sm font-medium {{ $activeTab === 'users' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">{{ __('Users') }}</a>
-                    </nav>
-                </div>
-
-                @if ($activeTab === 'configurations')
                     <div class="space-y-6">
-                        <div>
-                            <h3 class="text-lg font-medium text-gray-900 mb-2">{{ __('Configurations') }}</h3>
+                        <div class="mt-2">
                             <p class="text-sm text-gray-600">{{ __('Customize your application appearance and branding.') }}</p>
                         </div>
 
-                        <form action="{{ route('settings.configuration.update') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+                        <form action="{{ route('configurations.update') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
                             @csrf
                             
                             <!-- Basic Settings -->
@@ -163,7 +153,7 @@
                                         </div>
                                         <div>
                                             <label for="paragraph_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="color" name="paragraph_background_color" id="paragraph_background_color" value="{{ $configuration->paragraph_background_color }}" class="block w-full h-8 rounded border-gray-300">
+                                            <input type="text" name="paragraph_background_color" id="paragraph_background_color" value="{{ $configuration->paragraph_background_color }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
                                         <div>
                                             <label for="paragraph_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -218,7 +208,7 @@
                                         </div>
                                         <div>
                                             <label for="anchor_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="color" name="anchor_background_color" id="anchor_background_color" value="{{ $configuration->anchor_background_color }}" class="block w-full h-8 rounded border-gray-300">
+                                            <input type="text" name="anchor_background_color" id="anchor_background_color" value="{{ $configuration->anchor_background_color }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
                                         <div>
                                             <label for="anchor_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -274,7 +264,7 @@
                                         </div>
                                         <div>
                                             <label for="{{ $heading }}_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="color" name="{{ $heading }}_background_color" id="{{ $heading }}_background_color" value="{{ $configuration->{$heading.'_background_color'} }}" class="block w-full h-8 rounded border-gray-300">
+                                            <input type="text" name="{{ $heading }}_background_color" id="{{ $heading }}_background_color" value="{{ $configuration->{$heading.'_background_color'} }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
                                         <div>
                                             <label for="{{ $heading }}_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -335,7 +325,7 @@
                                         </div>
                                         <div>
                                             <label for="{{ $tableElement }}_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="color" name="{{ $tableElement }}_background_color" id="{{ $tableElement }}_background_color" value="{{ $configuration->{$tableElement.'_background_color'} }}" class="block w-full h-8 rounded border-gray-300">
+                                            <input type="text" name="{{ $tableElement }}_background_color" id="{{ $tableElement }}_background_color" value="{{ $configuration->{$tableElement.'_background_color'} }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
                                         <div>
                                             <label for="{{ $tableElement }}_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -363,7 +353,7 @@
                             </div>
 
                             <!-- Footer Design -->
-                            <div class="bg-white p-6 rounded-lg border">
+                            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-sm">
                                 <h4 class="text-lg font-medium text-gray-900 mb-4">Footer Design</h4>
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                                     <div>
@@ -429,344 +419,8 @@
                             </div>
                         </form>
                     </div>
-                @elseif ($activeTab === 'roles')
-                    <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">{{ __('Roles') }}</h3>
-                        <div class="flex items-center justify-between mb-4">
-                            <form method="GET" class="flex gap-2">
-                                <input type="hidden" name="tab" value="roles" />
-                                <input type="hidden" name="view" value="{{ $view }}" />
-                                <input type="text" name="search" value="{{ $search }}" placeholder="Search name or slug" class="border rounded px-3 py-2" />
-                                <select name="status" class="border rounded px-3 py-2">
-                                    <option value="">All Status</option>
-                                    <option value="1" @selected(($status ?? '')==='1')>Active</option>
-                                    <option value="0" @selected(($status ?? '')==='0')>Disabled</option>
-                                </select>
-                                <button class="px-3 py-2 bg-gray-500 text-white rounded flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-                                    </svg>
-                                    Filter
-                                </button>
-                                <a href="{{ route('settings.index', ['tab' => 'roles']) }}" class="px-3 py-2 border border-gray-300 text-gray-700 rounded">Reset</a>
-                            </form>
-                            <div class="flex items-center gap-2">
-                                <a href="{{ route('settings.index', array_merge(request()->except('view'), ['tab'=>'roles','view' => 'grid'])) }}" class="px-2 py-1 border rounded {{ $view==='grid' ? 'bg-gray-100' : '' }}">Grid</a>
-                                <a href="{{ route('settings.index', array_merge(request()->except('view'), ['tab'=>'roles','view' => 'list'])) }}" class="px-2 py-1 border rounded {{ $view==='list' ? 'bg-gray-100' : '' }}">List</a>
-                                <a href="{{ route('roles.create') }}" class="px-3 py-2 bg-indigo-600 text-white rounded">+ New Role</a>
-                            </div>
-                        </div>
-
-                        @if(($view ?? 'grid') === 'list')
-                            <div class="overflow-x-auto">
-                                <table class="w-full table-auto divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Icon</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Slug</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        @forelse(($roles ?? []) as $role)
-                                            <tr>
-                                                <td class="px-4 py-2">
-                                                    @if($role->icon_path)
-                                                        <img src="{{ asset($role->icon_path) }}" class="h-8 w-8 rounded" alt="icon" />
-                                                    @endif
-                                                </td>
-                                                <td class="px-4 py-2">{{ $role->name }}</td>
-                                                <td class="px-4 py-2">{{ $role->slug }}</td>
-                                                <td class="px-4 py-2">
-                                                    <div class="flex items-center">
-                                                        <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ $role->status ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $role->id }}" data-type="role" role="switch" aria-checked="{{ $role->status ? 'true' : 'false' }}">
-                                                            <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $role->status ? 'translate-x-5' : 'translate-x-0' }}"></span>
-                                                        </button>
-                                                        <span class="ml-3 text-sm font-medium text-gray-900">{{ $role->status ? 'Active' : 'Disabled' }}</span>
-                                                    </div>
-                                                </td>
-                                                <td class="px-4 py-2">
-                                                    <div class="flex items-center gap-3">
-                                                        <a href="{{ route('roles.edit', $role) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                            </svg>
-                                                        </a>
-                                                        <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this role?')" title="Delete">
-                                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                                </svg>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr><td colspan="5" class="px-4 py-6 text-center text-sm text-gray-500">No roles found.</td></tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        @else
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                @forelse(($roles ?? []) as $role)
-                                    <div class="border rounded p-4 flex items-center justify-between">
-                                        <div class="flex items-center gap-3">
-                                            @if($role->icon_path)
-                                                <img src="{{ asset('storage/'.$role->icon_path) }}" class="h-10 w-10 rounded" alt="icon" />
-                                            @else
-                                                <div class="h-10 w-10 rounded bg-gray-100"></div>
-                                            @endif
-                                            <div>
-                                                <div class="font-semibold">{{ $role->name }}</div>
-                                                <div class="text-xs text-gray-500">{{ $role->slug }}</div>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="mb-4">
-                                                <div class="flex items-center justify-end">
-                                                    <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ $role->status ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $role->id }}" data-type="role" role="switch" aria-checked="{{ $role->status ? 'true' : 'false' }}">
-                                                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $role->status ? 'translate-x-5' : 'translate-x-0' }}"></span>
-                                                    </button>
-                                                    <span class="ml-3 text-sm font-medium text-gray-900">{{ $role->status ? 'Active' : 'Disabled' }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="flex justify-end gap-3">
-                                                <a href="{{ route('roles.edit', $role) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                    </svg>
-                                                </a>
-                                                <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this role?')" title="Delete">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                        </svg>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @empty
-                                    <div class="col-span-full text-center text-sm text-gray-500 py-6">No roles found.</div>
-                                @endforelse
-                            </div>
-                        @endif
-
-                        <div class="mt-4">{{ ($roles ?? null)?->links() }}</div>
-                    </div>
-                @elseif ($activeTab === 'users')
-                    <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">{{ __('Users') }}</h3>
-                        <div class="flex items-center justify-between mb-4">
-                            <form method="GET" class="flex gap-2">
-                                <input type="hidden" name="tab" value="users" />
-                                <input type="hidden" name="view" value="{{ $view }}" />
-                                <input type="text" name="search" value="{{ $search }}" placeholder="Search name or email" class="border rounded px-3 py-2" />
-                                <select name="status" class="border rounded px-3 py-2">
-                                    <option value="">All Role Status</option>
-                                    <option value="1" @selected(($status ?? '')==='1')>Active</option>
-                                    <option value="0" @selected(($status ?? '')==='0')>Disabled</option>
-                                </select>
-                                <button class="px-3 py-2 bg-gray-500 text-white rounded flex items-center gap-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-                                    </svg>
-                                    Filter
-                                </button>
-                                <a href="{{ route('settings.index', ['tab' => 'users']) }}" class="px-3 py-2 border border-gray-300 text-gray-700 rounded">Reset</a>
-                            </form>
-                            <div class="flex items-center gap-2">
-                                <a href="{{ route('settings.index', array_merge(request()->except('view'), ['tab'=>'users','view' => 'grid'])) }}" class="px-2 py-1 border rounded {{ $view==='grid' ? 'bg-gray-100' : '' }}">Grid</a>
-                                <a href="{{ route('settings.index', array_merge(request()->except('view'), ['tab'=>'users','view' => 'list'])) }}" class="px-2 py-1 border rounded {{ $view==='list' ? 'bg-gray-100' : '' }}">List</a>
-                                <a href="{{ route('users.create') }}" class="px-3 py-2 bg-indigo-600 text-white rounded">+ New User</a>
-                            </div>
-                        </div>
-
-                        @if(($view ?? 'grid') === 'list')
-                            <div class="overflow-x-auto">
-                                <table class="w-full table-auto divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                        <tr>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Icon</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200">
-                                        @forelse(($users ?? []) as $u)
-                                            <tr>
-                                                <td class="px-4 py-2">
-                                                    @if($u->icon_path)
-                                                        <img src="{{ asset('storage/'.$u->icon_path) }}" class="h-8 w-8 rounded" alt="icon" />
-                                                    @endif
-                                                </td>
-                                                <td class="px-4 py-2">{{ $u->first_name }} {{ $u->last_name }}</td>
-                                                <td class="px-4 py-2">{{ $u->email }}</td>
-                                                <td class="px-4 py-2">{{ $u->role?->name }}</td>
-                                                <td class="px-4 py-2">
-                                                    <div class="flex items-center">
-                                                        <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ ($u->role?->status) ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $u->id }}" data-type="user" role="switch" aria-checked="{{ ($u->role?->status) ? 'true' : 'false' }}">
-                                                            <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ ($u->role?->status) ? 'translate-x-5' : 'translate-x-0' }}"></span>
-                                                        </button>
-                                                        <span class="ml-3 text-sm font-medium text-gray-900">{{ ($u->role?->status) ? 'Active' : 'Disabled' }}</span>
-                                                    </div>
-                                                </td>
-                                                <td class="px-4 py-2">
-                                                    <div class="flex items-center gap-3">
-                                                        <a href="{{ route('users.edit', $u) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                            </svg>
-                                                        </a>
-                                                        <form action="{{ route('users.destroy', $u) }}" method="POST" class="inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this user?')" title="Delete">
-                                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                                </svg>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr><td colspan="6" class="px-4 py-6 text-center text-sm text-gray-500">No users found.</td></tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        @else
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                @forelse(($users ?? []) as $u)
-                                    <div class="border rounded p-4 flex items-center justify-between">
-                                        <div class="flex items-center gap-3">
-                                            @if($u->icon_path)
-                                                <img src="{{ asset('storage/'.$u->icon_path) }}" class="h-10 w-10 rounded" alt="icon" />
-                                            @else
-                                                <div class="h-10 w-10 rounded bg-gray-100"></div>
-                                            @endif
-                                            <div>
-                                                <div class="font-semibold">{{ $u->first_name }} {{ $u->last_name }}</div>
-                                                <div class="text-xs text-gray-500">{{ $u->email }}</div>
-                                                <div class="text-xs text-gray-500">Role: {{ $u->role?->name ?? '-' }}</div>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="mb-4">
-                                                <div class="flex items-center justify-end">
-                                                    <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ ($u->role?->status) ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $u->id }}" data-type="user" role="switch" aria-checked="{{ ($u->role?->status) ? 'true' : 'false' }}">
-                                                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ ($u->role?->status) ? 'translate-x-5' : 'translate-x-0' }}"></span>
-                                                    </button>
-                                                    <span class="ml-3 text-sm font-medium text-gray-900">{{ ($u->role?->status) ? 'Active' : 'Disabled' }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="flex justify-end gap-3">
-                                                <a href="{{ route('users.edit', $u) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                                    </svg>
-                                                </a>
-                                                <form action="{{ route('users.destroy', $u) }}" method="POST" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this user?')" title="Delete">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                        </svg>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @empty
-                                    <div class="col-span-full text-center text-sm text-gray-500 py-6">No users found.</div>
-                                @endforelse
-                            </div>
-                        @endif
-
-                        <div class="mt-4">{{ ($users ?? null)?->links() }}</div>
-                    </div>
-                @endif
+                </div>
             </div>
         </div>
     </div>
-
-    @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Status toggle functionality for roles and users
-            document.querySelectorAll('.status-toggle').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    const type = this.dataset.type;
-                    const isCurrentlyActive = this.getAttribute('aria-checked') === 'true';
-                    const newStatus = !isCurrentlyActive;
-                    
-                    // Update the button appearance immediately for better UX
-                    this.setAttribute('aria-checked', newStatus.toString());
-                    this.classList.toggle('bg-blue-600', newStatus);
-                    this.classList.toggle('bg-gray-200', !newStatus);
-                    this.querySelector('span').classList.toggle('translate-x-5', newStatus);
-                    this.querySelector('span').classList.toggle('translate-x-0', !newStatus);
-                    
-                    // Determine the correct endpoint based on type
-                    const endpoint = type === 'role' ? `/settings/roles/${id}/toggle-status` : `/settings/users/${id}/toggle-status`;
-                    
-                    fetch(endpoint, {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            status: newStatus
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Update the status text
-                            // const statusText = this.parentElement.querySelector('span:last-child');
-                            // statusText.textContent = data.status ? 'Active' : 'Disabled';
-                            const statusText = $(this).parent('.flex').find('span').last();
-                            statusText.text(data.status ? 'Active' : 'Disabled');
-                        } else {
-                            // Revert the toggle if failed
-                            this.setAttribute('aria-checked', isCurrentlyActive.toString());
-                            this.classList.toggle('bg-blue-600', isCurrentlyActive);
-                            this.classList.toggle('bg-gray-200', !isCurrentlyActive);
-                            this.querySelector('span').classList.toggle('translate-x-5', isCurrentlyActive);
-                            this.querySelector('span').classList.toggle('translate-x-0', !isCurrentlyActive);
-                            alert('Failed to update status');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        // Revert the toggle if failed
-                        this.setAttribute('aria-checked', isCurrentlyActive.toString());
-                        this.classList.toggle('bg-blue-600', isCurrentlyActive);
-                        this.classList.toggle('bg-gray-200', !isCurrentlyActive);
-                        this.querySelector('span').classList.toggle('translate-x-5', isCurrentlyActive);
-                        this.querySelector('span').classList.toggle('translate-x-0', !isCurrentlyActive);
-                        alert('Failed to update status');
-                    });
-                });
-            });
-        });
-    </script>
-    @endpush
 </x-app-layout>
-
-

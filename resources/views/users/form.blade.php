@@ -104,7 +104,7 @@
                     </div>
 
                     <div class="flex justify-end gap-3">
-                        <a href="{{ route('settings.index', ['tab'=>'users']) }}" class="px-4 py-2 border rounded">Cancel</a>
+                        <a href="{{ route('users.index') }}" class="px-4 py-2 border rounded">Cancel</a>
                         <button class="px-4 py-2 bg-indigo-600 text-white rounded">{{ $user->exists ? 'Update' : 'Create' }}</button>
                     </div>
                 </form>

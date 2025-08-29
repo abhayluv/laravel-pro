@@ -57,7 +57,7 @@ class RolesController extends Controller
             'status' => ($data['status'] ?? '1') === '1',
         ]);
 
-        return redirect()->route('settings.index', ['tab' => 'roles'])->with('status', 'Role created successfully');
+        return redirect()->route('roles.index')->with('status', 'Role created successfully');
     }
 
     public function edit(Role $role)
@@ -86,7 +86,7 @@ class RolesController extends Controller
         $role->status = ($data['status'] ?? '1') === '1';
         $role->save();
 
-        return redirect()->route('settings.index', ['tab' => 'roles'])->with('status', 'Role updated successfully');
+        return redirect()->route('roles.index')->with('status', 'Role updated successfully');
     }
 
     public function destroy(Role $role)

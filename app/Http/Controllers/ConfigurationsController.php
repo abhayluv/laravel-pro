@@ -6,71 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Configuration;
 use Illuminate\Support\Facades\Storage;
 
-class SettingsController extends Controller
+class ConfigurationsController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $tab = $request->query('tab', 'configurations');
-        if (!in_array($tab, ['configurations', 'roles', 'users'], true)) {
-            $tab = 'configurations';
-        }
-
-        $data = ['activeTab' => $tab];
-
-        if ($tab === 'configurations') {
-            $configuration = Configuration::getCurrent();
-            $data['configuration'] = $configuration;
-        }
-
-        if ($tab === 'roles') {
-            $view = $request->query('view', 'grid'); // grid|list
-            $search = $request->query('search');
-            $status = $request->query('status'); // 1|0|null
-
-            $query = \App\Models\Role::query();
-            if ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%")
-                      ->orWhere('slug', 'like', "%{$search}%");
-                });
-            }
-            if ($status !== null && $status !== '') {
-                $query->where('status', (bool) $status);
-            }
-
-            $roles = $query->latest()->paginate(12)->withQueryString();
-
-            $data = array_merge($data, compact('roles', 'view', 'search', 'status'));
-        }
-
-        if ($tab === 'users') {
-            $view = $request->query('view', 'grid');
-            $search = $request->query('search');
-            $status = $request->query('status'); // 1 active role, 0 disabled role
-
-            $query = \App\Models\User::with('role');
-            if ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('first_name', 'like', "%{$search}%")
-                      ->orWhere('last_name', 'like', "%{$search}%")
-                      ->orWhere('email', 'like', "%{$search}%");
-                });
-            }
-            if ($status !== null && $status !== '') {
-                $query->whereHas('role', function ($q) use ($status) {
-                    $q->where('status', (bool)$status);
-                });
-            }
-
-            $users = $query->latest()->paginate(12)->withQueryString();
-
-            $data = array_merge($data, compact('users','view','search','status'));
-        }
-
-        return view('settings.index', $data);
+        $configuration = Configuration::getCurrent();
+        return view('configurations.index', compact('configuration'));
     }
 
-    public function updateConfiguration(Request $request)
+    public function update(Request $request)
     {
         $configuration = Configuration::getCurrent();
         
@@ -242,14 +186,12 @@ class SettingsController extends Controller
         }
 
         // Update all other fields
-                    $configuration->fill($data);
-            $configuration->save();
+        $configuration->fill($data);
+        $configuration->save();
 
-            // Clear configuration cache
-            Configuration::clearCache();
+        // Clear configuration cache
+        Configuration::clearCache();
 
-            return redirect()->route('settings.index', ['tab' => 'configurations'])->with('success', 'Configuration updated successfully!');
+        return redirect()->route('configurations.index')->with('success', 'Configuration updated successfully!');
     }
 }
-
-
