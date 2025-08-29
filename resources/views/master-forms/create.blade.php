@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="">
+        <div class="mx-auto">
             <div class="bg-gray-50 dark:bg-gray-900 shadow-sm sm:rounded-lg border border-gray-200 rounded">
                 <div class="p-6 sm:p-8 text-gray-900">
                 <form method="POST" action="{{ route('master-forms.store') }}" enctype="multipart/form-data" class="space-y-6">

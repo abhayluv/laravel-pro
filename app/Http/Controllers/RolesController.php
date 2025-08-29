@@ -97,6 +97,21 @@ class RolesController extends Controller
         $role->delete();
         return redirect()->route('roles.index')->with('status', 'Role deleted');
     }
+
+    public function toggleStatus(Request $request, Role $role)
+    {
+        $request->validate([
+            'status' => 'required|boolean'
+        ]);
+
+        $role->status = $request->status;
+        $role->save();
+
+        return response()->json([
+            'success' => true,
+            'status' => $role->status
+        ]);
+    }
 }
 
 

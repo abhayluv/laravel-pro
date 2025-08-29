@@ -39,6 +39,7 @@ Route::get('/test-configuration', function () {
         Route::get('roles/{role}/edit', [RolesController::class, 'edit'])->name('edit');
         Route::put('roles/{role}', [RolesController::class, 'update'])->name('update');
         Route::delete('roles/{role}', [RolesController::class, 'destroy'])->name('destroy');
+        Route::patch('roles/{role}/toggle-status', [RolesController::class, 'toggleStatus'])->name('toggle-status');
     });
     Route::middleware('verified')->prefix('settings')->name('users.')->group(function () {
         Route::get('users/create', [UsersController::class, 'create'])->name('create');
@@ -46,6 +47,7 @@ Route::get('/test-configuration', function () {
         Route::get('users/{user}/edit', [UsersController::class, 'edit'])->name('edit');
         Route::put('users/{user}', [UsersController::class, 'update'])->name('update');
         Route::delete('users/{user}', [UsersController::class, 'destroy'])->name('destroy');
+        Route::patch('users/{user}/toggle-status', [UsersController::class, 'toggleStatus'])->name('toggle-status');
     });
     
     // Master Form routes

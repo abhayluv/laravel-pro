@@ -163,7 +163,7 @@
                                         </div>
                                         <div>
                                             <label for="paragraph_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="text" name="paragraph_background_color" id="paragraph_background_color" value="{{ $configuration->paragraph_background_color }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="color" name="paragraph_background_color" id="paragraph_background_color" value="{{ $configuration->paragraph_background_color }}" class="block w-full h-8 rounded border-gray-300">
                                         </div>
                                         <div>
                                             <label for="paragraph_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -274,7 +274,7 @@
                                         </div>
                                         <div>
                                             <label for="{{ $heading }}_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="text" name="{{ $heading }}_background_color" id="{{ $heading }}_background_color" value="{{ $configuration->{$heading.'_background_color'} }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="color" name="{{ $heading }}_background_color" id="{{ $heading }}_background_color" value="{{ $configuration->{$heading.'_background_color'} }}" class="block w-full h-8 rounded border-gray-300">
                                         </div>
                                         <div>
                                             <label for="{{ $heading }}_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -335,7 +335,7 @@
                                         </div>
                                         <div>
                                             <label for="{{ $tableElement }}_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="text" name="{{ $tableElement }}_background_color" id="{{ $tableElement }}_background_color" value="{{ $configuration->{$tableElement.'_background_color'} }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="color" name="{{ $tableElement }}_background_color" id="{{ $tableElement }}_background_color" value="{{ $configuration->{$tableElement.'_background_color'} }}" class="block w-full h-8 rounded border-gray-300">
                                         </div>
                                         <div>
                                             <label for="{{ $tableElement }}_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -383,7 +383,12 @@
                                     <option value="1" @selected(($status ?? '')==='1')>Active</option>
                                     <option value="0" @selected(($status ?? '')==='0')>Disabled</option>
                                 </select>
-                                <button class="px-3 py-2 bg-gray-500 text-white rounded">Filter</button>
+                                <button class="px-3 py-2 bg-gray-500 text-white rounded flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                                    </svg>
+                                    Filter
+                                </button>
                                 <a href="{{ route('settings.index', ['tab' => 'roles']) }}" class="px-3 py-2 border border-gray-300 text-gray-700 rounded">Reset</a>
                             </form>
                             <div class="flex items-center gap-2">
@@ -416,17 +421,30 @@
                                                 <td class="px-4 py-2">{{ $role->name }}</td>
                                                 <td class="px-4 py-2">{{ $role->slug }}</td>
                                                 <td class="px-4 py-2">
-                                                    <span class="inline-flex items-center px-2 py-1 text-xs rounded {{ $role->status ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                                        {{ $role->status ? 'Active' : 'Disabled' }}
-                                                    </span>
+                                                    <div class="flex items-center">
+                                                        <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ $role->status ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $role->id }}" data-type="role" role="switch" aria-checked="{{ $role->status ? 'true' : 'false' }}">
+                                                            <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $role->status ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                                                        </button>
+                                                        <span class="ml-3 text-sm font-medium text-gray-900">{{ $role->status ? 'Active' : 'Disabled' }}</span>
+                                                    </div>
                                                 </td>
                                                 <td class="px-4 py-2">
-                                                    <a href="{{ route('roles.edit', $role) }}" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 mr-2">Edit</a>
-                                                    <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200" onclick="return confirm('Delete this role?')">Delete</button>
-                                                    </form>
+                                                    <div class="flex items-center gap-3">
+                                                        <a href="{{ route('roles.edit', $role) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                            </svg>
+                                                        </a>
+                                                        <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this role?')" title="Delete">
+                                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -451,17 +469,28 @@
                                             </div>
                                         </div>
                                         <div class="text-right">
-                                            <div class="mb-2">
-                                                <span class="inline-flex items-center px-2 py-1 text-xs rounded {{ $role->status ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                                    {{ $role->status ? 'Active' : 'Disabled' }}
-                                                </span>
+                                            <div class="mb-4">
+                                                <div class="flex items-center justify-end">
+                                                    <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ $role->status ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $role->id }}" data-type="role" role="switch" aria-checked="{{ $role->status ? 'true' : 'false' }}">
+                                                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $role->status ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                                                    </button>
+                                                    <span class="ml-3 text-sm font-medium text-gray-900">{{ $role->status ? 'Active' : 'Disabled' }}</span>
+                                                </div>
                                             </div>
-                                            <div class="space-x-2">
-                                                <a href="{{ route('roles.edit', $role) }}" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Edit</a>
+                                            <div class="flex justify-end gap-3">
+                                                <a href="{{ route('roles.edit', $role) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                    </svg>
+                                                </a>
                                                 <form action="{{ route('roles.destroy', $role) }}" method="POST" class="inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200" onclick="return confirm('Delete this role?')">Delete</button>
+                                                    <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this role?')" title="Delete">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                        </svg>
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>
@@ -487,7 +516,12 @@
                                     <option value="1" @selected(($status ?? '')==='1')>Active</option>
                                     <option value="0" @selected(($status ?? '')==='0')>Disabled</option>
                                 </select>
-                                <button class="px-3 py-2 bg-gray-500 text-white rounded">Filter</button>
+                                <button class="px-3 py-2 bg-gray-500 text-white rounded flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                                    </svg>
+                                    Filter
+                                </button>
                                 <a href="{{ route('settings.index', ['tab' => 'users']) }}" class="px-3 py-2 border border-gray-300 text-gray-700 rounded">Reset</a>
                             </form>
                             <div class="flex items-center gap-2">
@@ -522,17 +556,30 @@
                                                 <td class="px-4 py-2">{{ $u->email }}</td>
                                                 <td class="px-4 py-2">{{ $u->role?->name }}</td>
                                                 <td class="px-4 py-2">
-                                                    <span class="inline-flex items-center px-2 py-1 text-xs rounded {{ ($u->role?->status) ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                                        {{ ($u->role?->status) ? 'Active' : 'Disabled' }}
-                                                    </span>
+                                                    <div class="flex items-center">
+                                                        <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ ($u->role?->status) ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $u->id }}" data-type="user" role="switch" aria-checked="{{ ($u->role?->status) ? 'true' : 'false' }}">
+                                                            <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ ($u->role?->status) ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                                                        </button>
+                                                        <span class="ml-3 text-sm font-medium text-gray-900">{{ ($u->role?->status) ? 'Active' : 'Disabled' }}</span>
+                                                    </div>
                                                 </td>
                                                 <td class="px-4 py-2">
-                                                    <a href="{{ route('users.edit', $u) }}" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 mr-2">Edit</a>
-                                                    <form action="{{ route('users.destroy', $u) }}" method="POST" class="inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200" onclick="return confirm('Delete this user?')">Delete</button>
-                                                    </form>
+                                                    <div class="flex items-center gap-3">
+                                                        <a href="{{ route('users.edit', $u) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                            </svg>
+                                                        </a>
+                                                        <form action="{{ route('users.destroy', $u) }}" method="POST" class="inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this user?')" title="Delete">
+                                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -558,17 +605,28 @@
                                             </div>
                                         </div>
                                         <div class="text-right">
-                                            <div class="mb-2">
-                                                <span class="inline-flex items-center px-2 py-1 text-xs rounded {{ ($u->role?->status) ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                                    {{ ($u->role?->status) ? 'Active' : 'Disabled' }}
-                                                </span>
+                                            <div class="mb-4">
+                                                <div class="flex items-center justify-end">
+                                                    <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ ($u->role?->status) ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $u->id }}" data-type="user" role="switch" aria-checked="{{ ($u->role?->status) ? 'true' : 'false' }}">
+                                                        <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ ($u->role?->status) ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                                                    </button>
+                                                    <span class="ml-3 text-sm font-medium text-gray-900">{{ ($u->role?->status) ? 'Active' : 'Disabled' }}</span>
+                                                </div>
                                             </div>
-                                            <div class="space-x-2">
-                                                <a href="{{ route('users.edit', $u) }}" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Edit</a>
+                                            <div class="flex justify-end gap-3">
+                                                <a href="{{ route('users.edit', $u) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                    </svg>
+                                                </a>
                                                 <form action="{{ route('users.destroy', $u) }}" method="POST" class="inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200" onclick="return confirm('Delete this user?')">Delete</button>
+                                                    <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this user?')" title="Delete">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                        </svg>
+                                                    </button>
                                                 </form>
                                             </div>
                                         </div>
@@ -585,6 +643,71 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Status toggle functionality for roles and users
+            document.querySelectorAll('.status-toggle').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const type = this.dataset.type;
+                    const isCurrentlyActive = this.getAttribute('aria-checked') === 'true';
+                    const newStatus = !isCurrentlyActive;
+                    
+                    // Update the button appearance immediately for better UX
+                    this.setAttribute('aria-checked', newStatus.toString());
+                    this.classList.toggle('bg-blue-600', newStatus);
+                    this.classList.toggle('bg-gray-200', !newStatus);
+                    this.querySelector('span').classList.toggle('translate-x-5', newStatus);
+                    this.querySelector('span').classList.toggle('translate-x-0', !newStatus);
+                    
+                    // Determine the correct endpoint based on type
+                    const endpoint = type === 'role' ? `/settings/roles/${id}/toggle-status` : `/settings/users/${id}/toggle-status`;
+                    
+                    fetch(endpoint, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            status: newStatus
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update the status text
+                            // const statusText = this.parentElement.querySelector('span:last-child');
+                            // statusText.textContent = data.status ? 'Active' : 'Disabled';
+                            const statusText = $(this).parent('.flex').find('span').last();
+                            statusText.text(data.status ? 'Active' : 'Disabled');
+                        } else {
+                            // Revert the toggle if failed
+                            this.setAttribute('aria-checked', isCurrentlyActive.toString());
+                            this.classList.toggle('bg-blue-600', isCurrentlyActive);
+                            this.classList.toggle('bg-gray-200', !isCurrentlyActive);
+                            this.querySelector('span').classList.toggle('translate-x-5', isCurrentlyActive);
+                            this.querySelector('span').classList.toggle('translate-x-0', !isCurrentlyActive);
+                            alert('Failed to update status');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Revert the toggle if failed
+                        this.setAttribute('aria-checked', isCurrentlyActive.toString());
+                        this.classList.toggle('bg-blue-600', isCurrentlyActive);
+                        this.classList.toggle('bg-gray-200', !isCurrentlyActive);
+                        this.querySelector('span').classList.toggle('translate-x-5', isCurrentlyActive);
+                        this.querySelector('span').classList.toggle('translate-x-0', !isCurrentlyActive);
+                        alert('Failed to update status');
+                    });
+                });
+            });
+        });
+    </script>
+    @endpush
 </x-app-layout>
 
 

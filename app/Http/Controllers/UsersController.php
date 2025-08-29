@@ -107,6 +107,24 @@ class UsersController extends Controller
         $user->delete();
         return redirect()->route('settings.index', ['tab' => 'users'])->with('status', 'User deleted');
     }
+
+    public function toggleStatus(Request $request, User $user)
+    {
+        $request->validate([
+            'status' => 'required|boolean'
+        ]);
+
+        // Toggle the role's status since users don't have their own status
+        if ($user->role) {
+            $user->role->status = $request->status;
+            $user->role->save();
+        }
+
+        return response()->json([
+            'success' => true,
+            'status' => $user->role ? $user->role->status : false
+        ]);
+    }
 }
 
 

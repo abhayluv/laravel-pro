@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto">
         <div class="bg-gray-50 dark:bg-gray-900 shadow-sm sm:rounded-lg border border-gray-200 rounded">
             <div class="p-6 text-gray-900">
                 <form method="POST" action="{{ $user->exists ? route('users.update', $user) : route('users.store') }}" enctype="multipart/form-data" class="space-y-6">

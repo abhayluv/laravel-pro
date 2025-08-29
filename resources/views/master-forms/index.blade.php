@@ -17,7 +17,12 @@
                             <option value="1" @selected(($status ?? '')==='1')>Active</option>
                             <option value="0" @selected(($status ?? '')==='0')>Disabled</option>
                         </select>
-                        <button class="px-3 py-2 bg-gray-500 text-white rounded">Filter</button>
+                        <button class="px-3 py-2 bg-gray-500 text-white rounded flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                            </svg>
+                            Filter
+                        </button>
                         <a href="{{ route('master-forms.index') }}" class="px-3 py-2 border border-gray-300 text-gray-700 rounded">Reset</a>
                     </form>
                     <div class="flex items-center gap-2">
@@ -60,20 +65,36 @@
                                         <td class="px-4 py-2">{{ $form->phone_number }}</td>
                                         <td class="px-4 py-2">{{ $form->gender_text }}</td>
                                         <td class="px-4 py-2">
-                                            <label class="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" class="sr-only peer status-toggle" data-id="{{ $form->id }}" {{ $form->status ? 'checked' : '' }}>
-                                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                            <div class="flex items-center">
+                                                <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ $form->status ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $form->id }}" role="switch" aria-checked="{{ $form->status ? 'true' : 'false' }}">
+                                                    <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $form->status ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                                                </button>
                                                 <span class="ml-3 text-sm font-medium text-gray-900">{{ $form->status_text }}</span>
-                                            </label>
+                                            </div>
                                         </td>
                                         <td class="px-4 py-2">
-                                            <a href="{{ route('master-forms.show', $form) }}" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 mr-2">View</a>
-                                            <a href="{{ route('master-forms.edit', $form) }}" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 mr-2">Edit</a>
-                                            <form action="{{ route('master-forms.destroy', $form) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200" onclick="return confirm('Delete this master form?')">Delete</button>
-                                            </form>
+                                            <div class="flex items-center gap-3">
+                                                <a href="{{ route('master-forms.show', $form) }}" class="w-8 h-8 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition-colors flex items-center justify-center" title="View">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                    </svg>
+                                                </a>
+                                                <a href="{{ route('master-forms.edit', $form) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                    </svg>
+                                                </a>
+                                                <form action="{{ route('master-forms.destroy', $form) }}" method="POST" class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this master form?')" title="Delete">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
@@ -118,19 +139,33 @@
 
                                 <div class="flex items-center justify-between">
                                     <div>
-                                        <label class="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" class="sr-only peer status-toggle" data-id="{{ $form->id }}" {{ $form->status ? 'checked' : '' }}>
-                                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                        <div class="flex items-center">
+                                            <button type="button" class="status-toggle relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 {{ $form->status ? 'bg-blue-600' : 'bg-gray-200' }}" data-id="{{ $form->id }}" role="switch" aria-checked="{{ $form->status ? 'true' : 'false' }}">
+                                                <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out {{ $form->status ? 'translate-x-5' : 'translate-x-0' }}"></span>
+                                            </button>
                                             <span class="ml-3 text-sm font-medium text-gray-900">{{ $form->status_text }}</span>
-                                        </label>
+                                        </div>
                                     </div>
-                                    <div class="space-x-2">
-                                        <a href="{{ route('master-forms.show', $form) }}" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">View</a>
-                                        <a href="{{ route('master-forms.edit', $form) }}" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Edit</a>
+                                    <div class="flex items-center gap-3">
+                                        <a href="{{ route('master-forms.show', $form) }}" class="w-8 h-8 bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition-colors flex items-center justify-center" title="View">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="{{ route('master-forms.edit', $form) }}" class="w-8 h-8 bg-yellow-100 text-yellow-600 rounded hover:bg-yellow-200 transition-colors flex items-center justify-center" title="Edit">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                            </svg>
+                                        </a>
                                         <form action="{{ route('master-forms.destroy', $form) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="px-3 py-1 bg-red-100 text-red-700 rounded hover:bg-red-200" onclick="return confirm('Delete this master form?')">Delete</button>
+                                            <button class="w-8 h-8 bg-red-100 text-red-600 rounded hover:bg-red-200 transition-colors flex items-center justify-center" onclick="return confirm('Delete this master form?')" title="Delete">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                </svg>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
@@ -150,10 +185,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Status toggle functionality
-            document.querySelectorAll('.status-toggle').forEach(function(toggle) {
-                toggle.addEventListener('change', function() {
+            document.querySelectorAll('.status-toggle').forEach(function(button) {
+                button.addEventListener('click', function() {
                     const formId = this.dataset.id;
-                    const isChecked = this.checked;
+                    const isCurrentlyActive = this.getAttribute('aria-checked') === 'true';
+                    const newStatus = !isCurrentlyActive;
+                    
+                    // Update the button appearance immediately for better UX
+                    this.setAttribute('aria-checked', newStatus.toString());
+                    this.classList.toggle('bg-blue-600', newStatus);
+                    this.classList.toggle('bg-gray-200', !newStatus);
+                    this.querySelector('span').classList.toggle('translate-x-5', newStatus);
+                    this.querySelector('span').classList.toggle('translate-x-0', !newStatus);
                     
                     fetch(`/master-forms/${formId}/toggle-status`, {
                         method: 'PATCH',
@@ -162,24 +205,35 @@
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                         },
                         body: JSON.stringify({
-                            status: isChecked
+                            status: newStatus
                         })
                     })
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
                             // Update the status text
-                            const statusText = this.parentElement.querySelector('span');
-                            statusText.textContent = data.status ? 'Active' : 'Disabled';
+                            // const statusText = this.parentElement.querySelector('span:last-child');
+                            // statusText.textContent = data.status ? 'Active' : 'Disabled';
+                            const statusText = $(this).parent('.flex').find('span').last();
+                            statusText.text(data.status ? 'Active' : 'Disabled');
                         } else {
                             // Revert the toggle if failed
-                            this.checked = !isChecked;
+                            this.setAttribute('aria-checked', isCurrentlyActive.toString());
+                            this.classList.toggle('bg-blue-600', isCurrentlyActive);
+                            this.classList.toggle('bg-gray-200', !isCurrentlyActive);
+                            this.querySelector('span').classList.toggle('translate-x-5', isCurrentlyActive);
+                            this.querySelector('span').classList.toggle('translate-x-0', !isCurrentlyActive);
                             alert('Failed to update status');
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        this.checked = !isChecked;
+                        // Revert the toggle if failed
+                        this.setAttribute('aria-checked', isCurrentlyActive.toString());
+                        this.classList.toggle('bg-blue-600', isCurrentlyActive);
+                        this.classList.toggle('bg-gray-200', !isCurrentlyActive);
+                        this.querySelector('span').classList.toggle('translate-x-5', isCurrentlyActive);
+                        this.querySelector('span').classList.toggle('translate-x-0', !isCurrentlyActive);
                         alert('Failed to update status');
                     });
                 });
