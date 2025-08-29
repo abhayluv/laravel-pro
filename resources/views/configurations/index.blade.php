@@ -153,7 +153,7 @@
                                         </div>
                                         <div>
                                             <label for="paragraph_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="text" name="paragraph_background_color" id="paragraph_background_color" value="{{ $configuration->paragraph_background_color }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="color" name="paragraph_background_color" id="paragraph_background_color" value="{{ $configuration->paragraph_background_color }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
                                         <div>
                                             <label for="paragraph_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -208,7 +208,7 @@
                                         </div>
                                         <div>
                                             <label for="anchor_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="text" name="anchor_background_color" id="anchor_background_color" value="{{ $configuration->anchor_background_color }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="color" name="anchor_background_color" id="anchor_background_color" value="{{ $configuration->anchor_background_color }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
                                         <div>
                                             <label for="anchor_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -264,7 +264,7 @@
                                         </div>
                                         <div>
                                             <label for="{{ $heading }}_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="text" name="{{ $heading }}_background_color" id="{{ $heading }}_background_color" value="{{ $configuration->{$heading.'_background_color'} }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="color" name="{{ $heading }}_background_color" id="{{ $heading }}_background_color" value="{{ $configuration->{$heading.'_background_color'} }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
                                         <div>
                                             <label for="{{ $heading }}_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
@@ -325,7 +325,7 @@
                                         </div>
                                         <div>
                                             <label for="{{ $tableElement }}_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
-                                            <input type="text" name="{{ $tableElement }}_background_color" id="{{ $tableElement }}_background_color" value="{{ $configuration->{$tableElement.'_background_color'} }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                                            <input type="color" name="{{ $tableElement }}_background_color" id="{{ $tableElement }}_background_color" value="{{ $configuration->{$tableElement.'_background_color'} }}" placeholder="transparent" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         </div>
                                         <div>
                                             <label for="{{ $tableElement }}_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
