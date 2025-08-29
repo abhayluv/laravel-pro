@@ -211,6 +211,18 @@ class SettingsController extends Controller
             'td_box_shadow' => 'required|string',
             'td_padding' => 'required|string',
             'td_margin' => 'required|string',
+            'footer_text' => 'required|string',
+            'footer_font_size' => 'required|string|max:8',
+            'footer_font_color' => 'required|string|max:7',
+            'footer_font_hover_color' => 'required|string|max:7',
+            'footer_font_weight' => 'required|string|max:10',
+            'footer_line_height' => 'required|string|max:5',
+            'footer_background_color' => 'required|string|max:12',
+            'footer_border' => 'required|string',
+            'footer_border_radius' => 'required|string|max:8',
+            'footer_box_shadow' => 'required|string',
+            'footer_padding' => 'required|string',
+            'footer_margin' => 'required|string',
         ]);
 
         // Handle logo upload

@@ -331,7 +331,7 @@
                             Cancel
                         </a>
                         <button type="submit" class="px-4 py-2 bg-indigo-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-indigo-700">
-                            Update Master Form
+                            Update
                         </button>
                     </div>
                 </form>

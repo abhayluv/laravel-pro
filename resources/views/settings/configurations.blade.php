@@ -342,6 +342,65 @@
             @endforeach
         </div>
 
+        <!-- Footer Design -->
+        <div class="bg-white p-6 rounded-lg border">
+            <h4 class="text-lg font-medium text-gray-900 mb-4">Footer Design</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                    <label for="footer_text" class="block text-md font-medium text-gray-700 mb-1">Footer Text</label>
+                    <textarea name="footer_text" id="footer_text" rows="3" placeholder="© 2024 Your Company. All rights reserved." class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">{{ $configuration->footer_text }}</textarea>
+                </div>
+                <div>
+                    <label for="footer_font_size" class="block text-md font-medium text-gray-700 mb-1">Font Size</label>
+                    <input type="text" name="footer_font_size" id="footer_font_size" value="{{ $configuration->footer_font_size }}" placeholder="14px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="footer_font_color" class="block text-md font-medium text-gray-700 mb-1">Font Color</label>
+                    <input type="color" name="footer_font_color" id="footer_font_color" value="{{ $configuration->footer_font_color }}" class="block w-full h-8 rounded border-gray-300">
+                </div>
+                <div>
+                    <label for="footer_font_hover_color" class="block text-md font-medium text-gray-700 mb-1">Font Hover Color</label>
+                    <input type="color" name="footer_font_hover_color" id="footer_font_hover_color" value="{{ $configuration->footer_font_hover_color }}" class="block w-full h-8 rounded border-gray-300">
+                </div>
+                <div>
+                    <label for="footer_font_weight" class="block text-md font-medium text-gray-700 mb-1">Font Weight</label>
+                    <select name="footer_font_weight" id="footer_font_weight" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="normal" {{ $configuration->footer_font_weight == 'normal' ? 'selected' : '' }}>Normal</option>
+                        <option value="bold" {{ $configuration->footer_font_weight == 'bold' ? 'selected' : '' }}>Bold</option>
+                        <option value="lighter" {{ $configuration->footer_font_weight == 'lighter' ? 'selected' : '' }}>Lighter</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="footer_line_height" class="block text-md font-medium text-gray-700 mb-1">Line Height</label>
+                    <input type="text" name="footer_line_height" id="footer_line_height" value="{{ $configuration->footer_line_height }}" placeholder="1.5" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="footer_background_color" class="block text-md font-medium text-gray-700 mb-1">Background Color</label>
+                    <input type="color" name="footer_background_color" id="footer_background_color" value="{{ $configuration->footer_background_color }}" class="block w-full h-8 rounded border-gray-300">
+                </div>
+                <div>
+                    <label for="footer_border" class="block text-md font-medium text-gray-700 mb-1">Border</label>
+                    <input type="text" name="footer_border" id="footer_border" value="{{ $configuration->footer_border }}" placeholder="0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="footer_border_radius" class="block text-md font-medium text-gray-700 mb-1">Border Radius</label>
+                    <input type="text" name="footer_border_radius" id="footer_border_radius" value="{{ $configuration->footer_border_radius }}" placeholder="0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="footer_box_shadow" class="block text-md font-medium text-gray-700 mb-1">Box Shadow</label>
+                    <input type="text" name="footer_box_shadow" id="footer_box_shadow" value="{{ $configuration->footer_box_shadow }}" placeholder="none" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="footer_padding" class="block text-md font-medium text-gray-700 mb-1">Padding</label>
+                    <input type="text" name="footer_padding" id="footer_padding" value="{{ $configuration->footer_padding }}" placeholder="20px 0px 20px 0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="footer_margin" class="block text-md font-medium text-gray-700 mb-1">Margin</label>
+                    <input type="text" name="footer_margin" id="footer_margin" value="{{ $configuration->footer_margin }}" placeholder="0px 0px 0px 0px" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </div>
+        </div>
+
         <!-- Submit Button -->
         <div class="flex justify-end">
             <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">

@@ -60,6 +60,17 @@
                     <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
                         {{ $slot }}
                     </main>
+
+                    <!-- Footer -->
+                    @if($configuration->footer_text)
+                        <footer class="bg-white border-t border-gray-200">
+                            <div class="mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                                <div class="text-center">
+                                    {!! $configuration->footer_text !!}
+                                </div>
+                            </div>
+                        </footer>
+                    @endif
                 </div>
             </div>
         </div>

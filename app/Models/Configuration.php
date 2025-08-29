@@ -143,6 +143,18 @@ class Configuration extends Model
         'td_box_shadow',
         'td_padding',
         'td_margin',
+        'footer_text',
+        'footer_font_size',
+        'footer_font_color',
+        'footer_font_hover_color',
+        'footer_font_weight',
+        'footer_line_height',
+        'footer_background_color',
+        'footer_border',
+        'footer_border_radius',
+        'footer_box_shadow',
+        'footer_padding',
+        'footer_margin',
     ];
 
     /**
@@ -320,6 +332,18 @@ class Configuration extends Model
             'td_box_shadow' => 'none',
             'td_padding' => '12px 16px',
             'td_margin' => '0px 0px 0px 0px',
+            'footer_text' => '© 2024 Your Company. All rights reserved.',
+            'footer_font_size' => '14px',
+            'footer_font_color' => '#6b7280',
+            'footer_font_hover_color' => '#374151',
+            'footer_font_weight' => 'normal',
+            'footer_line_height' => '1.5',
+            'footer_background_color' => '#f9fafb',
+            'footer_border' => '0px',
+            'footer_border_radius' => '0px',
+            'footer_box_shadow' => 'none',
+            'footer_padding' => '20px 0px 20px 0px',
+            'footer_margin' => '0px 0px 0px 0px',
         ]);
     }
 
@@ -804,6 +828,43 @@ class Configuration extends Model
         html body nav .text-gray-100,
         html body nav .text-gray-200 {
             color: {$this->sidebar_text_color} !important;
+        }
+
+        /* Footer Styles - High Specificity */
+        html body footer,
+        html body .footer,
+        html body [class*='footer'] {
+            font-size: {$this->footer_font_size} !important;
+            color: {$this->footer_font_color} !important;
+            font-weight: {$this->footer_font_weight} !important;
+            line-height: {$this->footer_line_height} !important;
+            background-color: {$this->footer_background_color} !important;
+            border: {$this->footer_border} !important;
+            border-radius: {$this->footer_border_radius} !important;
+            box-shadow: {$this->footer_box_shadow} !important;
+            padding: {$this->footer_padding} !important;
+            margin: {$this->footer_margin} !important;
+        }
+
+        html body footer:hover,
+        html body .footer:hover,
+        html body [class*='footer']:hover {
+            color: {$this->footer_font_hover_color} !important;
+        }
+
+        /* Footer Links */
+        html body footer a,
+        html body .footer a,
+        html body [class*='footer'] a {
+            color: {$this->footer_font_color} !important;
+            font-size: {$this->footer_font_size} !important;
+            font-weight: {$this->footer_font_weight} !important;
+        }
+
+        html body footer a:hover,
+        html body .footer a:hover,
+        html body [class*='footer'] a:hover {
+            color: {$this->footer_font_hover_color} !important;
         }
         ";
     }

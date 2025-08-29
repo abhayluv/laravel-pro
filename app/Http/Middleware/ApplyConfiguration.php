@@ -16,12 +16,14 @@ class ApplyConfiguration
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Share configuration with all views
+        $configuration = Configuration::getCurrent();
+        view()->share('configuration', $configuration);
+        
         $response = $next($request);
 
         // Only apply to HTML responses
         if ($response->headers->get('Content-Type') && str_contains($response->headers->get('Content-Type'), 'text/html')) {
-            $configuration = Configuration::getCurrent();
-            
             // Generate CSS from configuration
             $css = $configuration->generateCSS();
             
