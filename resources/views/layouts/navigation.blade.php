@@ -66,6 +66,14 @@
                 </x-sidebar-link>
             </li>
             <li>
+                <x-sidebar-link :href="route('analytics.index')" :active="request()->routeIs('analytics.*')" class="w-full">
+                    <svg class="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13a4 4 0 017.48 1v7A4 4 0 019 25a4 4 0 01-4-4v-7a4 4 0 014-4zM21 5a4 4 0 00-7.48-1v7a4 4 0 004 4 4 4 0 004-4V5z" />
+                    </svg>
+                    <span>{{ __('Analytics') }}</span>
+                </x-sidebar-link>
+            </li>
+            <li>
                 <x-sidebar-link :href="route('test.configuration')" :active="request()->routeIs('test.configuration')" class="w-full">
                     <svg class="mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082m-.75-.082a24.301 24.301 0 00-4.5 0m0 0v5.714a2.25 2.25 0 00-.659 1.591L5 14.5m0 0v5.714a2.25 2.25 0 001.591.659L19.8 15.3" />

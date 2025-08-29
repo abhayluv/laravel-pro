@@ -13,6 +13,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
             \App\Http\Middleware\ApplyConfiguration::class,
+            \App\Http\Middleware\TrackAnalytics::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

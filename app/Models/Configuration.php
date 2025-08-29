@@ -1022,7 +1022,7 @@ class Configuration extends Model
             font-weight: {$this->footer_font_weight} !important;
         }
 
-        html body footer a:hover,
+N        html body footer a:hover,
         html body .footer a:hover,
         html body [class*='footer'] a:hover {
             color: {$this->footer_font_hover_color} !important;

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ConfigurationsController;
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MasterFormController;
@@ -23,6 +24,11 @@ Route::middleware('auth')->group(function () {
     // Configurations routes
     Route::get('/configurations', [ConfigurationsController::class, 'index'])->middleware('verified')->name('configurations.index');
     Route::post('/configurations', [ConfigurationsController::class, 'update'])->middleware('verified')->name('configurations.update');
+
+    // Analytics routes
+    Route::get('/analytics', [AnalyticsController::class, 'index'])->middleware('verified')->name('analytics.index');
+    Route::post('/analytics/track', [AnalyticsController::class, 'track'])->name('analytics.track');
+    Route::get('/analytics/data', [AnalyticsController::class, 'getData'])->middleware('verified')->name('analytics.data');
 
 // Test route for configuration
 Route::get('/test-configuration', function () {
